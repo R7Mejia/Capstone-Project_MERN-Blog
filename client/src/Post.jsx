@@ -1,46 +1,31 @@
 
-import React from 'react';
-import { format } from 'date-fns';
-import { Link } from 'react-router-dom';
-import DOMPurify from 'dompurify';
+import { formatISO9075 } from "date-fns";
+import { Link } from "react-router-dom";
+import DeletePost from "./pages/DeletePost";
 
-function Post({ _id, title, summary, cover, content, createdAt, author }) {
-    const truncatedContent = (content ?? '').slice(0, 150) + '...';
+export default function Post({ _id, title, summary, cover, content, createdAt, author }) {
 
     return (
-        _id && (
-            <div className="post">
-                <div className="image">
-                    <Link to={`/post/${_id}`}>
-                        <img src={`http://localhost:2024/${cover}`} alt={`Cover image for ${title}`} />
-                    </Link>
-                </div>
-                <div className="texts">
-                    <Link to={`/post/${_id}`}>
-                        <h2>{title}</h2>
-                    </Link>
-                    <p className="info">
-                        <a className="author" href={`/profile/${author?._id}`}>
-                            {author?.username}
-                        </a>
-                        <time>{format(createdAt, 'MMM d, yyyy HH:mm')}</time>
-                    </p>
-                    <p className="summary">{summary}</p>
-                    <div className="content">
-                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
-                        {content?.length > 150 && (
-                            <Link to={`/post/${_id}`} className="read-more">
-                                Read More
-                            </Link>
-                        )}
-                    </div>
-                </div>
+        <div className="post">
+            <div className="image">
+                <Link to={`/post/${_id}`}>
+                    <img src={'http://localhost:2024/' + cover} alt="" />
+                </Link>
             </div>
-        )
+            <div className="texts">
+                <Link to={`/post/${_id}`}>
+                    <h2>{title}</h2>
+                </Link>
+                <p className="info">
+                    <a className="author">{author.username}</a>
+                    <time>{formatISO9075(new Date(createdAt))}</time>
+                </p>
+                <p className="summary">{summary}</p>
+            </div>
+            <DeletePost id={_id} author={author} />
+        </div>
     );
 }
-
-export default Post;
 
 
 

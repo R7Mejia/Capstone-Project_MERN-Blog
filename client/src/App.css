@@ -9,12 +9,11 @@ a{
     cursor: pointer;
 }
    div#root{
-    
-    
 margin: 0;
 width: 100%;
 height: 100vh;
-}    
+}
+
 body{
     color: #08d6d6;
     background-image: url('../images/Background4.png');
@@ -42,6 +41,7 @@ header{
     align-items: center;
     
 }
+
 /* header{
     background-color: #713d3d;
     margin: 5vh 0 5vh;
@@ -93,7 +93,7 @@ div.post p.info{
     gap: 10px;
 }
 div.post p.info a.author{
-    color:#333;
+    color:#bfbebe;
 }
 div.post p.summary{
     margin:10px 0;
@@ -125,6 +125,10 @@ button{
 }
 form.login h1, form.register h1{
     text-align: center;
+}
+div.post-page div.imagen{
+    width: 50%;
+    height: 20%;
 }
 
 div.post-page div.image{
@@ -179,6 +183,39 @@ div.post-page a.edit-btn{
     padding:15px 30px;
     border-radius: 5px;
     text-decoration: none;
+}
+.btn-del{
+  cursor: pointer;
+  border-radius: 5px;
+  color: rgb(219, 218, 218);
+  border-style: solid;
+  background-color: transparent;
+  border-color: rgb(219, 218, 218);
+  width: 120px;
+  height: 40px;
+  transition: 0.2s ease;
+  text-transform: uppercase;
+  border-width: 2px;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.btn-del:hover {
+  color: rgb(247, 247, 247);
+  background-color: rgb(202, 25, 25);
+  border-color: rgb(202, 25, 25);
+  text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
+  box-shadow: 0 0 50px rgb(202, 25, 25), 0 0 30px rgb(202, 25, 25),
+    0 0 60px rgb(202, 25, 25), 0 0 120px rgb(202, 25, 25);
+  font-size: 20px;
+  width: 130px;
+  height: 50px;
+  letter-spacing: 3px;
+}
+.btn-del:active {
+  width: 115px;
+  height: 38px;
+  letter-spacing: 0px;
 }
 a svg{
     height:20px;
