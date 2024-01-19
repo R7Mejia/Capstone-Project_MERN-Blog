@@ -1,8 +1,34 @@
-# React + Vite
+# My MERN Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
+- [Description](#description)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contact](#contact)
 
-Currently, two official plugins are available:
+## Description
+My MERN Blog is a capstone project developed for the Perscholas React Bootcamp. It serves as a platform for creating, editing, and deleting blog posts. The application follows the MERN stack architecture, utilizing MongoDB, Express.js, React, and Node.js.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- User authentication (register, login, logout)
+- Create, edit, and delete blog posts
+- Image upload for blog post covers
+- Responsive and intuitive user interface
+
+## Technologies Used
+- MongoDB
+- Express.js
+- React
+- Node.js
+- JWT for authentication
+- Multer for file uploads
+- bcrypt for password hashing
+
+## Usage
+
+## Screenshots
+
+## Contact
