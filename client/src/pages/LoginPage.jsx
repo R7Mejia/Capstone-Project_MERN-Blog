@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import apipath from '../api.js'
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ export default function LoginPage() {
     const { setUserInfo } = useContext(UserContext);
     async function login(ev) {
         ev.preventDefault();
-        const response = await fetch('http://localhost:2024/login', {
+        const response = await fetch(`${apipath}/login`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },

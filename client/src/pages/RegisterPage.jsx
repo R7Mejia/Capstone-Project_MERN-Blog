@@ -1,21 +1,30 @@
 
 import { useState } from "react";
+import { Navigate } from "react-router-dom";  
+import apipath from '../api.js'
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);  
+
     async function register(ev) {
         ev.preventDefault();
-        const response = await fetch('http://localhost:2024/register', {
+        const response = await fetch(`${apipath}/register`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },
         });
         if (response.status === 200) {
-            alert('registration successful');
+            alert('Registration successful');
+            setRedirect(true);  // Set redirect to true on successful registration
         } else {
-            alert('registration failed');
+            alert('Registration failed');
         }
+    }
+
+    if (redirect) {
+        return <Navigate to={'/login'} />;  // Redirect to the login page
     }
     return (
         <form className="register" onSubmit={register}>

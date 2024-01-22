@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Editor from "../Editor";
+import apipath from '../api.js'
 
 export default function EditPost() {
     const { id } = useParams();
@@ -11,7 +12,7 @@ export default function EditPost() {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:2024/post/' + id)
+        fetch(`${apipath}/post/${id}`)
             .then(response => {
                 response.json().then(postInfo => {
                     setTitle(postInfo.title);
@@ -31,7 +32,7 @@ export default function EditPost() {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
-        const response = await fetch('http://localhost:2024/post', {
+        const response = await fetch(`${ apipath}/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include',
@@ -55,7 +56,7 @@ export default function EditPost() {
                 placeholder={'Summary'}
                 value={summary}
                 onChange={ev => setSummary(ev.target.value)} />
-            <input type="file"
+            <input className='pictures' type="file"
                 onChange={ev => setFiles(ev.target.files)} />
             <Editor onChange={setContent} value={content} />
             <button style={{ marginTop: '5px' }}>Update post</button>

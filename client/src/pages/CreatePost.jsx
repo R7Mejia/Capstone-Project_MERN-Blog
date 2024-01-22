@@ -1,10 +1,13 @@
 // Adding comments to this page cuz it was really hard to understand some functionalities...
+
 //Import necessary libraries and components
 import ReactQuill from "react-quill"; // Rich text editor library
 import 'react-quill/dist/quill.snow.css'; // Stylesheet for the rich text editor
 import { useState } from "react"; // State hook for managing component state
 import { Navigate } from "react-router-dom"; // Navigation component for redirecting
 import Editor from "../Editor"; // Custom editor component (assumed to be a rich text editor)
+import apipath from '../api.js'
+
 
 // Define the CreatePost functional component
 export default function CreatePost() {
@@ -28,7 +31,7 @@ export default function CreatePost() {
         data.append('file', files[0]); // Append the file ( an image)
 
         // Send a POST request to the server with the post data
-        const response = await fetch('http://localhost:2024/post', {
+        const response = await fetch(`${apipath}/post`, {
             method: 'POST',
             body: data,
             credentials: 'include', // Include credentials in the request

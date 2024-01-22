@@ -1,10 +1,13 @@
 import Post from "../Post";
 import { useEffect, useState } from "react";
+import apipath from '../api.js'
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:2024/post').then(response => {
+    // console.log(apipath)
+    fetch(`${apipath}/post`)
+      .then(response => {
       response.json().then(posts => {
         setPosts(posts);
       });

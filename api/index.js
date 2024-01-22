@@ -1,3 +1,6 @@
+require("dotenv").config()
+
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -32,7 +35,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 mongoose.connect(
-  "mongodb+srv://robertomejiar7:MANBlogger7@cluster0.fegrfox.mongodb.net/"
+  process.env.MONGO_URI
 );
 
 app.post("/register", async (req, res) => {

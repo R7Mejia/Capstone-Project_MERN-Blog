@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
+import apipath from './api.js'
 
 export default function Header() {
     const { setUserInfo, userInfo } = useContext(UserContext);
     useEffect(() => {
-        fetch('http://localhost:2024/profile', {
+        fetch(`${apipath}/profile`, {
             credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
@@ -15,7 +16,7 @@ export default function Header() {
     }, []);
 
     function logout() {
-        fetch('http://localhost:2024/logout', {
+        fetch(`${apipath}/logout`, {
             credentials: 'include',
             method: 'POST',
         });
@@ -44,8 +45,3 @@ export default function Header() {
         </header>
     );
 }
-
-
-
-
-    
