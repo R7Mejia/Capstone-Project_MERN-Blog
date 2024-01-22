@@ -1,4 +1,5 @@
-// Import necessary libraries and components
+// Adding comments to this page cuz it was really hard to understand some functionalities...
+//Import necessary libraries and components
 import ReactQuill from "react-quill"; // Rich text editor library
 import 'react-quill/dist/quill.snow.css'; // Stylesheet for the rich text editor
 import { useState } from "react"; // State hook for managing component state
@@ -19,12 +20,12 @@ export default function CreatePost() {
         // Prevent the default form submission behavior
         ev.preventDefault();
 
-        // Create a FormData object to send data with the request
+        ////// Create a FormData object to send data with the request
         const data = new FormData();
         data.set('title', title); // Set the title
         data.set('summary', summary); // Set the summary
         data.set('content', content); // Set the content
-        data.append('file', files[0]); // Append the file (assumed to be an image)
+        data.append('file', files[0]); // Append the file ( an image)
 
         // Send a POST request to the server with the post data
         const response = await fetch('http://localhost:2024/post', {
@@ -39,7 +40,7 @@ export default function CreatePost() {
         }
     }
 
-    // If the redirect state is true, navigate to the home page
+    // If the redirect state is true, navigate to the pagina principal (home page)
     if (redirect) {
         return <Navigate to={'/'} />
     }

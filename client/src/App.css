@@ -164,7 +164,7 @@ div.post-page div.author{
     font-weight: bold;
 }
 div.content p{
-    line-height: 1.7rem;
+    line-height: 1.5rem;
     margin: 30px 0;
 }
 div.content li{
@@ -220,3 +220,6 @@ div.post-page a.edit-btn{
 a svg{
     height:20px;
 } 
+.ql-snow .ql-editor img {
+    max-width: 20%;
+}

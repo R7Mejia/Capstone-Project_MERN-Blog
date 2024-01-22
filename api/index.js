@@ -8,7 +8,17 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
-const uploadMiddleware = multer({ dest: "uploads/" });
+// const uploadMiddleware = multer({ dest: "uploads/" });
+
+// Updated Multer configuration with increased limits
+const uploadMiddleware = multer({
+  dest: "uploads/",
+  limits: {
+    fieldSize: 10 * 1024 * 1024, // Increase the size limit (10MB in this example)
+    fieldNameSize: 100, // Increase the field name size limit
+  },
+}); 
+
 const fs = require("fs");
 
 const port = 2024;
