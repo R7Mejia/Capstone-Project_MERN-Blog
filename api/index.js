@@ -4,7 +4,7 @@ require("dotenv").config()
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const User = require("./models/User");
+const user = require("./models/user");
 const Post = require("./models/Post");
 const bcrypt = require("bcryptjs");
 const app = express();
@@ -34,10 +34,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
+//MONGOOSE
 mongoose.connect(
   process.env.MONGO_URI
 );
 
+//ROUTES
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
