@@ -29,13 +29,26 @@ const port = 2024;
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
+//cors
 //  app.use(
 //    cors({
 //      credentials: true,
 //      origin: "https://capstone-project-mern-blog.vercel.app",
 //    })
 //  );
-app.use(cors({ origin: "*" }));
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://capstone-project-mern-blog.vercel.app"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+//app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(cookieParser());
