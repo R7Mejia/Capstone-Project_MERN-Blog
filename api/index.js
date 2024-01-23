@@ -59,7 +59,7 @@ app.post("/login", async (req, res) => {
         const { username, password } = req.body;
 
         // Find the user with the given username
-        const userDoc = await User.findOne({ username });
+        const userDoc = await user.findOne({ username });
 
         // Check if userDoc is not null
         if (userDoc) {
