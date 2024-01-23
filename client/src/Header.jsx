@@ -7,7 +7,7 @@ export default function Header() {
     const { setUserInfo, userInfo } = useContext(UserContext);
     useEffect(() => {
         fetch(`${apipath}/profile`, {
-            credentials: 'include',
+            // credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
                 setUserInfo(userInfo);
@@ -17,7 +17,7 @@ export default function Header() {
 
     function logout() {
         fetch(`${apipath}/logout`, {
-            credentials: 'include',
+            // credentials: 'include',
             method: 'POST',
         });
         setUserInfo(null);

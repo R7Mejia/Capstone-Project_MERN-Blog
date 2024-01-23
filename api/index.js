@@ -35,7 +35,8 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
 //      origin: "https://capstone-project-mern-blog.vercel.app",
 //    })
 //  );
-app.use(cors({  origin: "*" }));
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
