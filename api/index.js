@@ -29,8 +29,8 @@ const port = 2024;
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-// app.use(cors({ credentials: true, origin: "*" }));
+// app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({  origin: "*" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
