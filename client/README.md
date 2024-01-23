@@ -32,3 +32,4 @@ My MERN Blog is a capstone project developed for the Perscholas React Bootcamp. 
 ## Screenshots
 
 ## Contact
+Github: https://github.com/R7Mejia/Capstone-Project_MERN-Blog
