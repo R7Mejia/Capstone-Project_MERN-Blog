@@ -30,6 +30,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+// app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -40,10 +41,17 @@ mongoose.connect(
 );
 
 //ROUTES
+//TESTING
+app.get('/testing', (req, res) => {
+ res.send("Hello from test endpoint");
+})
+
+//
+
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const userDoc = await User.create({
+    const userDoc = await user.create({
       username,
       password: bcrypt.hashSync(password, salt),
     });
