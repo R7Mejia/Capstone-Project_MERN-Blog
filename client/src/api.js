@@ -1,4 +1,4 @@
-const apipath = import.meta.env.APIPATH || 'http://localhost:2024'
+const apipath = import.meta.env.APIPATH || 'https://localhost:2024'
 
 export default apipath 
 
