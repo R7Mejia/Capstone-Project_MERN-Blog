@@ -129,6 +129,9 @@ app.get("/profile", (req, res) => {
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
+
+//
+// POST route
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
@@ -137,6 +140,9 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   fs.renameSync(path, newPath);
 
   const { token } = req.cookies;
+  
+  console.log("Token in POST route:", token); // ADD THIS LINE
+  
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
     const { title, summary, content } = req.body;
@@ -151,7 +157,7 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
-// UPDATE POST
+// PUT route
 app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   try {
     let newPath = null;
@@ -164,6 +170,9 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
     }
 
     const { token } = req.cookies;
+
+    console.log("Token in PUT route:", token); // ADD THIS LINE
+    
     jwt.verify(token, secret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, summary, content } = req.body;
@@ -201,6 +210,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   }
 });
 
+//
 app.get("/post", async (req, res) => {
   res.json(
     await Post.find()
