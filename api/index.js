@@ -33,8 +33,7 @@ app.use(cookieParser());
  app.use(
    cors({
      credentials: true,
-     origin: "https://capstone-project-mern-blog.vercel.app",
-     //origin:"http://localhost:5173"
+     origin:"http://localhost:5173"
    })
  );
 // app.use((req, res, next) => {
@@ -199,6 +198,8 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
     res.status(500).json("Internal Server Error");
   }
 });
+//random console.log
+console.log("hello")
 
 app.get("/post", async (req, res) => {
   res.json(
