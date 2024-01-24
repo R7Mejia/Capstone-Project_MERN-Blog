@@ -130,19 +130,23 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
 
-//
-// POST route
+//// POST route
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
+  const { token } = req.cookies;
+
+  console.log("Token in POST route:", token); // ADD THIS LINE
+
+  if (!req.file) {
+    console.error("No file received in the request");
+    return res.status(400).json("No file received in the request");
+  }
+
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-  const { token } = req.cookies;
-  
-  console.log("Token in POST route:", token); // ADD THIS LINE
-  
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
     const { title, summary, content } = req.body;
@@ -157,7 +161,7 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
-// PUT route
+//// PUT route
 app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   try {
     let newPath = null;
