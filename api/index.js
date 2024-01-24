@@ -28,13 +28,13 @@ const port = 2024;
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
-
+app.use(cookieParser());
 /////////////////CORS////////
  app.use(
    cors({
      credentials: true,
-      origin: ["https://localhost:5173", "https://capstone-project-mern-blog.vercel.app"],
-   //origin:"http://localhost:5173"
+     origin: "https://capstone-project-mern-blog.vercel.app",
+     //origin:"http://localhost:5173"
    })
  );
 // app.use((req, res, next) => {
@@ -52,7 +52,7 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
 //app.use(cors({ origin: "*" }));
 
 app.use(express.json());
-app.use(cookieParser());
+
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 //MONGOOSE
@@ -162,7 +162,8 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
       fs.renameSync(path, newPath);
     }
 
-    const { token } = req.cookies;
+    // const { token } = req.cookie;
+    console.log(req.cookies)
     jwt.verify(token, secret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, summary, content } = req.body;
