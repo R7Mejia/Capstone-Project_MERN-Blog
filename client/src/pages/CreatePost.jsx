@@ -23,21 +23,27 @@ export default function CreatePost() {
         // Prevent the default form submission behavior
         ev.preventDefault();
 
+        // Retrieve the JWT token from local storage
+        const jwtToken = localStorage.getItem('token');
+
+        // Create headers with the token
+        const headers = {
+            'Authorization': `Bearer ${jwtToken}`,
+        };
+
         ////// Create a FormData object to send data with the request
         const data = new FormData();
         data.set('title', title); // Set the title
         data.set('summary', summary); // Set the summary
         data.set('content', content); // Set the content
-        data.append('file', files[0]); // Append the file ( an image)
+        data.append('file', files[0]); // Append the file (an image)
 
-        // Send a POST request to the server with the post data
+        // Send a POST request to the server with the post data and headers
         const response = await fetch(`${apipath}/post`, {
             method: 'POST',
             body: data,
             credentials: 'include', // Include credentials in the request
-            headers: {
-                Authorization: `Bearer ${your_jwt_token}`, // Include the token here
-            },
+            headers: headers, // Include the headers with the token
         });
 
         // Check if the response is buena

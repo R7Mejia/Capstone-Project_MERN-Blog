@@ -24,6 +24,15 @@ export default function EditPost() {
 
     async function updatePost(ev) {
         ev.preventDefault();
+
+        // Retrieve the JWT token from local storage
+        const jwtToken = localStorage.getItem('token');
+
+        // Create headers with the token
+        const headers = {
+            'Authorization': `Bearer ${jwtToken}`,
+        };
+
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
@@ -32,14 +41,15 @@ export default function EditPost() {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
+
+        // Send a PUT request to the server with the post data and headers
         const response = await fetch(`${apipath}/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include',
-            headers: {
-                Authorization: `Bearer ${your_jwt_token}`, // Include the token here
-            },
+            headers: headers, // Include the headers with the token
         });
+
         if (response.ok) {
             setRedirect(true);
         }
