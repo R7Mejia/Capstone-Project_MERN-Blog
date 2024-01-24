@@ -35,13 +35,3 @@ export default function Post({ _id, title, summary, cover, content, createdAt, a
 
 
 
-
-
-
-
-
-
-
-
-
-
