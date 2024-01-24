@@ -120,6 +120,7 @@ app.post("/login", async (req, res) => {
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
+    console.log("Decoded Token Info:", info);
     if (err) throw err;
     res.json(info);
   });
@@ -128,7 +129,6 @@ app.get("/profile", (req, res) => {
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
-
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
@@ -151,7 +151,7 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
-//UPDATE POST
+// UPDATE POST
 app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   try {
     let newPath = null;
@@ -164,7 +164,6 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
     }
 
     const { token } = req.cookies;
-    //console.log(req.cookies)
     jwt.verify(token, secret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, summary, content } = req.body;
