@@ -33,7 +33,8 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
  app.use(
    cors({
      credentials: true,
-     origin: "https://capstone-project-mern-blog.vercel.app",
+      origin: ["http://localhost:5173", "https://capstone-project-mern-blog.vercel.app"],
+   //origin:"http://localhost:5173"
    })
  );
 // app.use((req, res, next) => {
@@ -169,7 +170,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
       const isAuthor =
         JSON.stringify(postDoc.author) === JSON.stringify(info.id);
       if (!isAuthor) {
-        return res.status(400).json("you are not the author");
+        return res.status(400).json("Sorry son, you are not the author");
       }
 
       // Use updateOne instead of postDoc.update
@@ -225,7 +226,4 @@ app.delete("/post/:id", async (req, res) => {
 })
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
-
-
-
 
