@@ -33,7 +33,7 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
  app.use(
    cors({
      credentials: true,
-      origin: ["http://localhost:5173", "https://capstone-project-mern-blog.vercel.app"],
+      origin: ["https://localhost:5173", "https://capstone-project-mern-blog.vercel.app"],
    //origin:"http://localhost:5173"
    })
  );
