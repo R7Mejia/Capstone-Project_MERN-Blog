@@ -22,6 +22,8 @@ const uploadMiddleware = multer({
   },
 }); 
 
+console.log("nothing");
+
 const fs = require("fs");
 
 const port = 2024;
