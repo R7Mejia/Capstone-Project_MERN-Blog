@@ -1,4 +1,5 @@
-const apipath = import.meta.env.APIPATH || 'http://localhost:2024'
+//const apipath = import.meta.env.APIPATH || 'http://localhost:2024'
+const apipath = import.meta.env.APIPATH || "https://capstone-project-mern-blog.vercel.app";
 
 export default apipath 
 
