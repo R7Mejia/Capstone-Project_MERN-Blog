@@ -1,3 +1,5 @@
+
+
 // Adding comments to this page cuz it was really hard to understand some functionalities...
 
 //Import necessary libraries and components
@@ -23,32 +25,23 @@ export default function CreatePost() {
         // Prevent the default form submission behavior
         ev.preventDefault();
 
-        // Retrieve the JWT token from local storage
-        const jwtToken = localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlI3TWVqaWEyNCIsImlkIjoiNjVhYWI3MTI2ODRhYTA3ZTkzNjE3NTQ0IiwiaWF0IjoxNzA2MTExNzY2fQ.pKkMybkcOS1VwknCBHzWQUURmLyuL3wHpG_pJ-x7_gk');
-
-        // Create headers with the token
-        const headers = {
-            'Authorization': `Bearer ${jwtToken}`,
-        };
-
         ////// Create a FormData object to send data with the request
         const data = new FormData();
         data.set('title', title); // Set the title
         data.set('summary', summary); // Set the summary
         data.set('content', content); // Set the content
-        data.append('file', files[0]); // Append the file (an image)
+        data.append('file', files[0]); // Append the file ( an image)
 
-        // Send a POST request to the server with the post data and headers
+        // Send a POST request to the server with the post data
         const response = await fetch(`${apipath}/post`, {
             method: 'POST',
             body: data,
             credentials: 'include', // Include credentials in the request
-            headers: headers, // Include the headers with the token
         });
 
         // Check if the response is buena
         if (response.ok) {
-            setRedirect(true);
+            setRedirect(true); 
         }
     }
 
@@ -79,14 +72,8 @@ export default function CreatePost() {
 
 
 
-
-
-
-
-
-
-
-
+///////////////////////////////////////////////////////////////////
+///////////////////////////THIS CODE IS FOR TESTING PURPOSES ONLY//////
 
 // // Adding comments to this page cuz it was really hard to understand some functionalities...
 
@@ -113,23 +100,32 @@ export default function CreatePost() {
 //         // Prevent the default form submission behavior
 //         ev.preventDefault();
 
+//         // Retrieve the JWT token from local storage
+//         const jwtToken = localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlI3TWVqaWEyNCIsImlkIjoiNjVhYWI3MTI2ODRhYTA3ZTkzNjE3NTQ0IiwiaWF0IjoxNzA2MTExNzY2fQ.pKkMybkcOS1VwknCBHzWQUURmLyuL3wHpG_pJ-x7_gk');
+
+//         // Create headers with the token
+//         const headers = {
+//             'Authorization': `Bearer ${jwtToken}`,
+//         };
+
 //         ////// Create a FormData object to send data with the request
 //         const data = new FormData();
 //         data.set('title', title); // Set the title
 //         data.set('summary', summary); // Set the summary
 //         data.set('content', content); // Set the content
-//         data.append('file', files[0]); // Append the file ( an image)
+//         data.append('file', files[0]); // Append the file (an image)
 
-//         // Send a POST request to the server with the post data
+//         // Send a POST request to the server with the post data and headers
 //         const response = await fetch(`${apipath}/post`, {
 //             method: 'POST',
 //             body: data,
 //             credentials: 'include', // Include credentials in the request
+//             headers: headers, // Include the headers with the token
 //         });
 
 //         // Check if the response is buena
 //         if (response.ok) {
-//             setRedirect(true); 
+//             setRedirect(true);
 //         }
 //     }
 
@@ -156,6 +152,3 @@ export default function CreatePost() {
 //         </form>
 //     );
 // }
-
-
-

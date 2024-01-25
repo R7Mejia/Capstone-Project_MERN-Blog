@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Editor from "../Editor";
@@ -24,15 +25,6 @@ export default function EditPost() {
 
     async function updatePost(ev) {
         ev.preventDefault();
-
-        // Retrieve the JWT token from local storage
-        const jwtToken = localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlI3TWVqaWEyNCIsImlkIjoiNjVhYWI3MTI2ODRhYTA3ZTkzNjE3NTQ0IiwiaWF0IjoxNzA2MTExNzY2fQ.pKkMybkcOS1VwknCBHzWQUURmLyuL3wHpG_pJ - x7_gk');
-
-        // Create headers with the token
-        const headers = {
-            'Authorization': `Bearer ${jwtToken}`,
-        };
-
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
@@ -41,15 +33,11 @@ export default function EditPost() {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
-
-        // Send a PUT request to the server with the post data and headers
-        const response = await fetch(`${apipath}/post`, {
+        const response = await fetch(`${ apipath}/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include',
-            headers: headers, // Include the headers with the token
         });
-
         if (response.ok) {
             setRedirect(true);
         }
@@ -81,16 +69,8 @@ export default function EditPost() {
 
 
 
-
-
-
-
-
-
-
-
-
-
+////////////////////////////////////////////////////////////
+///////////////////THIS CODE IS FOR TESTING PURPOSES ONLY
 
 // import { useEffect, useState } from "react";
 // import { Navigate, useParams } from "react-router-dom";
@@ -118,6 +98,15 @@ export default function EditPost() {
 
 //     async function updatePost(ev) {
 //         ev.preventDefault();
+
+//         // Retrieve the JWT token from local storage
+//         const jwtToken = localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlI3TWVqaWEyNCIsImlkIjoiNjVhYWI3MTI2ODRhYTA3ZTkzNjE3NTQ0IiwiaWF0IjoxNzA2MTExNzY2fQ.pKkMybkcOS1VwknCBHzWQUURmLyuL3wHpG_pJ - x7_gk');
+
+//         // Create headers with the token
+//         const headers = {
+//             'Authorization': `Bearer ${jwtToken}`,
+//         };
+
 //         const data = new FormData();
 //         data.set('title', title);
 //         data.set('summary', summary);
@@ -126,11 +115,15 @@ export default function EditPost() {
 //         if (files?.[0]) {
 //             data.set('file', files?.[0]);
 //         }
-//         const response = await fetch(`${ apipath}/post`, {
+
+//         // Send a PUT request to the server with the post data and headers
+//         const response = await fetch(`${apipath}/post`, {
 //             method: 'PUT',
 //             body: data,
 //             credentials: 'include',
+//             headers: headers, // Include the headers with the token
 //         });
+
 //         if (response.ok) {
 //             setRedirect(true);
 //         }
@@ -157,4 +150,5 @@ export default function EditPost() {
 //         </form>
 //     );
 // }
+
 
