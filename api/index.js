@@ -1,5 +1,6 @@
-require("dotenv").config()
 
+
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -20,7 +21,7 @@ const uploadMiddleware = multer({
     fieldSize: 10 * 1024 * 1024, // Increase the size limit (10MB in this example)
     fieldNameSize: 100, // Increase the field name size limit
   },
-}); 
+});
 
 const fs = require("fs");
 
@@ -30,37 +31,23 @@ const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 app.use(cookieParser());
 /////////////////CORS////////
- app.use(
-   cors({
-     credentials: true,
-     origin: "https://capstone-project-mern-blog.vercel.app",
-     //origin:"http://localhost:5173"
-   })
- );
-// app.use((req, res, next) => {
-//   res.setHeader(
-//     "Access-Control-Allow-Origin",
-//     "https://capstone-project-mern-blog.vercel.app"
-//   );
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
-//app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    credentials: true,
+    //origin: "https://capstone-project-mern-blog.vercel.app",
+    origin:"http://localhost:5173"
+  })
+);
 
 app.use(express.json());
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 //MONGOOSE
-mongoose.connect(
-  process.env.MONGO_URI
-);
+mongoose.connect(process.env.MONGO_URI);
 
 //ROUTES
+
 // //TESTING
 // app.get('/testing', (req, res) => {
 //  res.send("Hello from test endpoint");
@@ -83,44 +70,43 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    try {
-        const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-        // Find the user with the given username
-        const userDoc = await user.findOne({ username });
+    // Find the user with the given username
+    const userDoc = await user.findOne({ username });
 
-        // Check if userDoc is not null
-        if (userDoc) {
-            // Compare the passwords if the user exists
-            const passOk = bcrypt.compareSync(password, userDoc.password);
+    // Check if userDoc is not null
+    if (userDoc) {
+      // Compare the passwords if the user exists
+      const passOk = bcrypt.compareSync(password, userDoc.password);
 
-            if (passOk) {
-                // Generate JWT token if passwords match
-                jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
-                    if (err) throw err;
-                    res.cookie("token", token).json({
-                        id: userDoc._id,
-                        username,
-                    });
-                });
-            } else {
-                // Handle case where passwords don't match
-                res.status(400).json("wrong credentials");
-            }
-        } else {
-            // Handle case where user with the given username was not found
-            res.status(400).json("user not found");
-        }
-    } catch (error) {
-        console.error("Error during login:", error);
-        res.status(500).json("Internal Server Error");
+      if (passOk) {
+        // Generate JWT token if passwords match
+        jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
+          if (err) throw err;
+          res.cookie("token", token).json({
+            id: userDoc._id,
+            username,
+          });
+        });
+      } else {
+        // Handle case where passwords don't match
+        res.status(400).json("wrong credentials");
+      }
+    } else {
+      // Handle case where user with the given username was not found
+      res.status(400).json("user not found");
     }
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json("Internal Server Error");
+  }
 });
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
-    console.log("Decoded Token Info:", info);
     if (err) throw err;
     res.json(info);
   });
@@ -130,23 +116,14 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
 
-//// POST route
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
-  const { token } = req.cookies;
-
-  console.log("Token in POST route:", token); // ADD THIS LINE
-
-  if (!req.file) {
-    console.error("No file received in the request");
-    return res.status(400).json("No file received in the request");
-  }
-
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
+  const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
     const { title, summary, content } = req.body;
@@ -161,7 +138,6 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
-//// PUT route
 app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   try {
     let newPath = null;
@@ -174,9 +150,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
     }
 
     const { token } = req.cookies;
-
-    console.log("Token in PUT route:", token); // ADD THIS LINE
-    
+    console.log(req.cookies);
     jwt.verify(token, secret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, summary, content } = req.body;
@@ -205,8 +179,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
         "username",
       ]);
 
-      // After updating the post, send a success response
-      res.json({ success: true });
+      res.json(updatedPostDoc);
     });
   } catch (error) {
     console.error("Error updating post:", error);
@@ -214,7 +187,6 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
   }
 });
 
-//
 app.get("/post", async (req, res) => {
   res.json(
     await Post.find()
@@ -232,20 +204,21 @@ app.get("/post/:id", async (req, res) => {
 
 //DELETE un post
 app.delete("/post/:id", async (req, res) => {
-    try {
-        await Post.findByIdAndDelete(req.params.id);
-        res.json({success: true})
-    } catch (error) {
-        console.error("Error deleting post:", error);
-        res.status(500).json("Internal Server Error")
-   }
-})
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json("Internal Server Error");
+  }
+});
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 
 
-///////
+
+//THE CODE BELOW IS FOR TESTING PURPOSES ONLY
 // require("dotenv").config();
 
 // const express = require("express");
@@ -365,6 +338,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 // app.get("/profile", (req, res) => {
 //   const { token } = req.cookies;
 //   jwt.verify(token, secret, {}, (err, info) => {
+//     console.log("Decoded Token Info:", info);
 //     if (err) throw err;
 //     res.json(info);
 //   });
@@ -374,14 +348,23 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 //   res.cookie("token", "").json("ok");
 // });
 
+// //// POST route
 // app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
+//   const { token } = req.cookies;
+
+//   console.log("Token in POST route:", token); // ADD THIS LINE
+
+//   if (!req.file) {
+//     console.error("No file received in the request");
+//     return res.status(400).json("No file received in the request");
+//   }
+
 //   const { originalname, path } = req.file;
 //   const parts = originalname.split(".");
 //   const ext = parts[parts.length - 1];
 //   const newPath = path + "." + ext;
 //   fs.renameSync(path, newPath);
 
-//   const { token } = req.cookies;
 //   jwt.verify(token, secret, {}, async (err, info) => {
 //     if (err) throw err;
 //     const { title, summary, content } = req.body;
@@ -396,6 +379,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 //   });
 // });
 
+// //// PUT route
 // app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
 //   try {
 //     let newPath = null;
@@ -408,7 +392,9 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 //     }
 
 //     const { token } = req.cookies;
-//     console.log(req.cookies);
+
+//     console.log("Token in PUT route:", token); // ADD THIS LINE
+
 //     jwt.verify(token, secret, {}, async (err, info) => {
 //       if (err) throw err;
 //       const { id, title, summary, content } = req.body;
@@ -437,7 +423,8 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 //         "username",
 //       ]);
 
-//       res.json(updatedPostDoc);
+//       // After updating the post, send a success response
+//       res.json({ success: true });
 //     });
 //   } catch (error) {
 //     console.error("Error updating post:", error);
@@ -445,6 +432,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 //   }
 // });
 
+// //
 // app.get("/post", async (req, res) => {
 //   res.json(
 //     await Post.find()
@@ -472,4 +460,3 @@ app.listen(port, () => console.log(`Server listening on port ${port}`));
 // });
 
 // app.listen(port, () => console.log(`Server listening on port ${port}`));
-

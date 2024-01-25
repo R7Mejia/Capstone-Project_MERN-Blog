@@ -24,7 +24,7 @@ export default function CreatePost() {
         ev.preventDefault();
 
         // Retrieve the JWT token from local storage
-        const jwtToken = localStorage.getItem('token');
+        const jwtToken = localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlI3TWVqaWEyNCIsImlkIjoiNjVhYWI3MTI2ODRhYTA3ZTkzNjE3NTQ0IiwiaWF0IjoxNzA2MTExNzY2fQ.pKkMybkcOS1VwknCBHzWQUURmLyuL3wHpG_pJ-x7_gk');
 
         // Create headers with the token
         const headers = {
