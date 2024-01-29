@@ -5,8 +5,7 @@
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Screenshots](#screenshots)
+
 - [Contact](#contact)
 
 ## Description
@@ -27,9 +26,6 @@ My MERN Blog is a capstone project developed for the Perscholas React Bootcamp. 
 - Multer for file uploads
 - bcrypt for password hashing
 
-## Usage
-
-## Screenshots
 
 ## Contact
 Github: https://github.com/R7Mejia/Capstone-Project_MERN-Blog

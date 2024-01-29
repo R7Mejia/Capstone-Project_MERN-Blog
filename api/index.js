@@ -34,8 +34,8 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    //origin: "https://capstone-project-mern-blog.vercel.app",
-    origin:"http://localhost:5173"
+    origin: "https://capstone-project-mern-blog.vercel.app",
+    //origin:"http://localhost:5173"
   })
 );
 
